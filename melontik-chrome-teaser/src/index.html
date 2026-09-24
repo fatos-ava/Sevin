@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Melontik Chrome Eklentisi — Teaser (9:16)</title>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<style>
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  canvas { display: block; }
+  /* interactive preview controls (hidden for the headless exporter, which never shows them) */
+  #ui { position: fixed; left: 12px; bottom: 12px; color: #fff; font: 13px Inter, sans-serif; background: rgba(0,0,0,.6); padding: 8px 10px; border-radius: 8px; display: none; }
+  body.preview #ui { display: block; }
+  body.preview canvas { height: 100vh; width: auto; margin: 0 auto; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div id="ui"><input id="t" type="range" min="0" max="15" step="0.0333" value="0" style="width:360px"> <span id="tv">0.00</span>s <button id="play">play</button></div>
+<script src="lib.js"></script>
+<script src="scene.js"></script>
+<script>
+(async () => {
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const timeline = window.TIMELINE || await (await fetch('timeline.json')).json(); // exporter injects window.TIMELINE (fetch is blocked on file://)
+  // fonts: canvas does not trigger font loading, so load every face explicitly
+  const faces = ['400 10px Montserrat','500 10px Montserrat','600 10px Montserrat','700 10px Montserrat','800 10px Montserrat','900 10px Montserrat','400 10px Inter','500 10px Inter','600 10px Inter'];
+  await Promise.all(faces.map(f => document.fonts.load(f, 'Her şey değişmek üzere İçin melontik 0123456789 YAKINDA net.')));
+  if (!document.fonts.check('800 10px Montserrat', 'şğİ')) console.error('Latin-ext glyphs not loaded for Montserrat');
+  // images
+  const names = ['dash_card_netkar','dash_netkar_row','dash_revenue_403k','kar_detayi_card_a','kar_detayi_card_b','kar_detayi_header','kar_detayi_figures','pill_row_4','pill_big_332_cut','pill_604_flash_cut','flash_countdown','cards_row_3','hesapla_tooltip','netkar_row_6277','webstore_listing','logo_mark_bitmap','wordmark_bitmap'];
+  const assets = {};
+  await Promise.all(names.map(n => new Promise((res, rej) => { const im = new Image(); im.onload = () => { assets[n] = im; res(); }; im.onerror = rej; im.src = `../assets/fragments/${n}.png`; })));
+  const scene = window.Scene.create(ctx, canvas, assets, timeline);
+  let scale = 1;
+  window.setScale = s => { scale = s; canvas.width = Math.round(1080 * s); canvas.height = Math.round(1920 * s); };
+  window.render = (t, frameIndex) => {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (scale !== 1) ctx.scale(scale, scale);
+    scene.render(t, frameIndex == null ? Math.round(t * timeline.fps) : frameIndex);
+  };
+  window.appReady = true;
+  // interactive preview when opened in a normal browser with ?preview
+  if (location.search.includes('preview')) {
+    document.body.classList.add('preview');
+    const slider = document.getElementById('t'), tv = document.getElementById('tv');
+    slider.max = timeline.duration;
+    const draw = () => { const t = parseFloat(slider.value); tv.textContent = t.toFixed(2); window.render(t); };
+    slider.addEventListener('input', draw); draw();
+    let playing = false, t0 = 0, tStart = 0;
+    document.getElementById('play').onclick = () => { playing = !playing; if (playing) { tStart = parseFloat(slider.value); t0 = performance.now(); requestAnimationFrame(loop); } };
+    function loop(now) { if (!playing) return; let t = tStart + (now - t0) / 1000; if (t > timeline.duration) { t = 0; tStart = 0; t0 = now; } slider.value = t; draw(); requestAnimationFrame(loop); }
+  } else {
+    window.render(0, 0);
+  }
+})().catch(e => { console.error(e); window.appError = String(e); });
+</script>
+</body>
+</html>
