@@ -151,12 +151,13 @@ def build(tl, seed=42):
 
     # --- 0.00 ignition: lamp click + low thump; electrical hum with 8 Hz flutter for 0.4 s
     ln = int(0.4 * SR); tt = np.arange(ln) / SR
-    click = biquad_bp(rng.standard_normal(ln), 3200, q=4) * exp_decay(ln, 0.004) * 0.6
-    thump = np.sin(2 * np.pi * (48 + 30 * np.exp(-tt / 0.05)) * tt) * exp_decay(ln, 0.12) * 0.5
-    hum = (np.sin(2 * np.pi * 100 * tt) + 0.3 * np.sin(2 * np.pi * 200 * tt)) * (0.6 + 0.4 * np.sign(np.sin(2 * np.pi * 8 * tt))) * 0.05
+    click = biquad_bp(rng.standard_normal(ln), 3200, q=4) * exp_decay(ln, 0.004) * 1.2
+    thump = np.sin(2 * np.pi * (48 + 30 * np.exp(-tt / 0.05)) * tt) * exp_decay(ln, 0.12) * 1.0
+    hum = (np.sin(2 * np.pi * 110 * tt) + 0.3 * np.sin(2 * np.pi * 220 * tt)) * (0.6 + 0.4 * np.sign(np.sin(2 * np.pi * 8 * tt))) * 0.05
     add(click + thump + hum, 0.0)
+    add(click * 0.5, 0.08)                                         # a second, softer click: one of the two survives player start-up
     # room tone / hum, very low, until 9 s
-    hum2 = (np.sin(2 * np.pi * 100 * t) + 0.3 * np.sin(2 * np.pi * 200 * t)) * 0.012 * np.clip((mid_t - t) / 0.2, 0, 1) * np.clip(t / 0.4, 0, 1)
+    hum2 = (np.sin(2 * np.pi * 110 * t) + 0.3 * np.sin(2 * np.pi * 220 * t)) * 0.03 * np.clip((mid_t - t) / 0.2, 0, 1) * np.clip(t / 0.4, 0, 1)
     L += hum2; R += hum2
 
     # --- 1. sub drone: two detuned saws at A1 through a low-pass that opens slowly; ducked on pulses
@@ -165,7 +166,7 @@ def build(tl, seed=42):
     drone = (saw(55.0) + saw(55.3, 0.37)) * 0.5
     cutoff = np.interp(t, [0, 3, 9, drop_t], [180, 260, 600, 700])
     drone = one_pole_lp(drone, cutoff); drone = one_pole_lp(drone, cutoff)
-    drone_env = np.clip(t / 2.2, 0, 1) ** 1.4
+    drone_env = np.clip(t / 1.2, 0, 1) ** 1.2
     drone_env *= np.where(t < mid_t, 1.0, np.where(t < mid_t + 0.15, 0.0, 0.7))        # cut at the 9 s snap, back softer
     drone_env *= np.where(t < drop_t, 1.0, np.exp(-(t - drop_t) / 0.5))
     drone *= drone_env * 0.30
@@ -173,7 +174,7 @@ def build(tl, seed=42):
 
     # --- 2. air: pink-ish noise band 6-10 kHz, slow LFO, panned with the beam (L->R over 1-3, wander after)
     air = biquad_bp(rng.standard_normal(n), 7500, q=0.9)
-    air *= (0.55 + 0.45 * np.sin(2 * np.pi * 0.2 * t)) * 0.028 * np.clip((t - 0.6) / 1.0, 0, 1) * np.clip((mid_t - t) / 0.1, 0, 1)
+    air *= (0.55 + 0.45 * np.sin(2 * np.pi * 0.2 * t)) * 0.028 * np.clip((t - 0.15) / 0.8, 0, 1) * np.clip((mid_t - t) / 0.1, 0, 1)
     pan = np.clip(np.interp(t, [1.0, 3.0, 5.0, 6.0, 7.0], [0.2, 0.8, 0.5, 0.75, 0.3]), 0, 1)
     L += air * (1 - pan) * 1.4; R += air * pan * 1.4
 
@@ -187,11 +188,11 @@ def build(tl, seed=42):
                 sig += (2 * ((f * det * tt + ph) % 1.0) - 1) * 0.12
         sig = one_pole_lp(sig, np.interp(np.arange(ln), [0, ln], [lp0, lp1]))
         return sig * amp
-    pad = pad_chord([220.0, 261.63, 329.63, 493.88], mid_t + 0.1, drop_t, 0.17, 500, 2400)
-    ln = len(pad); env = env_adsr(ln, 1.2, 0.5, 0.9, 0.08)
+    pad = pad_chord([220.0, 261.63, 329.63, 493.88], mid_t + 0.1, drop_t, 0.22, 500, 2400)
+    ln = len(pad); env = env_adsr(ln, 0.5, 0.5, 0.9, 0.08)
     add(pad * env, mid_t + 0.1, 0.95, 1.05)
-    res = pad_chord([220.0, 277.18, 329.63, 440.0], drop_t, dur, 0.13, 900, 2600)
-    ln = len(res); env = env_adsr(ln, 0.25, 0.4, 0.75, 0.9)
+    res = pad_chord([220.0, 277.18, 329.63, 440.0], drop_t, dur, 0.28, 900, 2600)
+    ln = len(res); env = env_adsr(ln, 0.12, 0.4, 0.75, 1.2)
     add(res * env, drop_t, 1.0, 1.0)
 
     # --- 4. pulses: soft thud on beats 3-7, 8ths 7-8.9 rising; 16th noise ticks 7-8.9; half-time thuds 9.5/10.5/11.5
@@ -201,7 +202,7 @@ def build(tl, seed=42):
         return np.sin(2 * np.pi * np.cumsum(f) / SR) * exp_decay(ln, decay) * amp
     b = parts0
     while b < 7.0 - 1e-6:
-        amp = 0.34 + 0.10 * (b - parts0) / 4.0
+        amp = 0.30 + 0.18 * (b - parts0) / 4.0
         add(thud(amp), b); b += beat
     b = 7.0
     while b < 8.9 - 1e-6:
@@ -220,11 +221,11 @@ def build(tl, seed=42):
     pent = [880.0, 523.25, 783.99, 659.25, 493.88, 587.33, 880.0, 659.25, 523.25, 1046.5]
     for i, c in enumerate(cuts):
         ln = int(0.25 * SR); tt = np.arange(ln) / SR
-        nz = biquad_bp(rng.standard_normal(ln), 2600, q=1.2) * exp_decay(ln, 0.012) * 0.55
+        nz = biquad_bp(rng.standard_normal(ln), 2600, q=1.2) * exp_decay(ln, 0.012) * 0.55 * (1 + 2.0 * ((c - 3.0) / 5.9) ** 2)
         thock = np.sin(2 * np.pi * 180 * tt) * exp_decay(ln, 0.03) * 0.35
         f = pent[i % len(pent)]
         tink = (np.sin(2 * np.pi * f * tt) + 0.5 * np.sin(2 * np.pi * f * 2.76 * tt)) * exp_decay(ln, 0.09) * 0.16
-        pan = 0.5 + 0.35 * math.sin(i * 1.9)
+        pan = 0.5 + 0.18 * math.sin(i * 1.9)
         add(nz + thock + tink, c, (1 - pan) * 2, pan * 2)
     # glass ticks where the light touches something (graze at 2.4, row crossings in the ledger scan, slit crossings)
     for tk, f, a in [(2.4, 2400, 0.14), (4.7, 1800, 0.08), (4.95, 1800, 0.08), (5.2, 1800, 0.08), (5.45, 1800, 0.08), (5.7, 1800, 0.08), (6.35, 1320, 0.12), (6.7, 1320, 0.12)]:
@@ -240,51 +241,59 @@ def build(tl, seed=42):
     # --- 6. risers: main riser 3.0 -> 8.92 (saw glide + band-passed noise + accelerating tremolo); second riser 11.0 -> 12.9
     def riser(start, end, amp_noise, amp_tone, f0, f1, trem0, trem1):
         ln = int((end - start) * SR); tt = np.arange(ln) / SR; u = tt / (end - start)
-        nz = one_pole_lp(rng.standard_normal(ln), 300 + 7000 * u ** 2.2); nz = hp_var(nz, 250 + 1500 * u ** 2)
+        nz = one_pole_lp(rng.standard_normal(ln), 600 + 7000 * u ** 1.8); nz = hp_var(nz, 250 + 1500 * u ** 2); nz = biquad_lp(nz, 10000)
         f_inst = f0 * (f1 / f0) ** (u ** 1.3)
         tone = 2 * ((np.cumsum(f_inst) / SR) % 1.0) - 1
         tone = one_pole_lp(tone, 400 + 5000 * u ** 2)
         trem_f = trem0 + (trem1 - trem0) * u ** 2
         trem = 0.55 + 0.45 * np.sin(2 * np.pi * np.cumsum(trem_f) / SR)
-        env = u ** 2.4
+        env = u ** 1.6
         return (nz * amp_noise + tone * trem * amp_tone) * env
-    r1 = riser(parts0, 8.92, 0.30, 0.10, 110, 440, 2, 16)
+    r1 = riser(parts0, 8.875, 0.30, 0.10, 110, 440, 2, 16)
+    # duck the riser 6 dB for 40 ms on every cut so the cut accents stay audible
+    for c in cuts:
+        i0 = int((c - parts0) * SR); i1 = min(len(r1), i0 + int(0.04 * SR))
+        if 0 <= i0 < len(r1): r1[i0:i1] *= 0.5
     add(r1, parts0, 0.95, 1.05)
     r2 = riser(11.0, 12.9, 0.26, 0.09, 110, 330, 3, 18)
     add(r2, 11.0, 1.05, 0.95)
     # accelerating tick rolls (0.25 -> 0.0625 s spacing), humanised by +/-25 ms
-    for roll0, roll1, a0 in [(11.0, 12.88, 0.06), (8.5, 8.9, 0.07)]:
+    for roll0, roll1, a0 in [(11.0, 12.88, 0.06), (8.5, 8.875, 0.07)]:
         tb = roll0
         while tb < roll1:
             u = (tb - roll0) / (roll1 - roll0)
             ln = int(0.03 * SR)
-            tick = biquad_bp(rng.standard_normal(ln), 6000 + 3000 * u, q=4) * exp_decay(ln, 0.006) * (a0 + 0.10 * u ** 2)
+            tick = biquad_bp(rng.standard_normal(ln), 6000 + 3000 * u, q=4) * exp_decay(ln, 0.006) * (a0 + 0.06 * u ** 2)
             jitter = rng.uniform(-0.025, 0.025) * (1 - u)
             add(tick, tb + jitter, 0.5 + 0.4 * math.sin(tb * 7), 0.5 - 0.4 * math.sin(tb * 7))
             tb += max(0.0625, 0.25 * (1 - u) ** 1.5)
     # reverse-cymbal swell into the 9.0 snap (8.5-8.92) and into the drop (12.5-12.9)
-    for s0, s1, a in [(8.5, 8.92, 0.22), (12.55, 12.9, 0.16)]:
+    for s0, s1, a in [(8.5, 8.875, 0.22), (12.55, 12.9, 0.16)]:
         ln = int((s1 - s0) * SR); tt = np.arange(ln) / SR; u = tt / (s1 - s0)
-        cym = hp_var(rng.standard_normal(ln), 2000 - 1800 * u) * (u ** 2.5) * a
+        cym = biquad_lp(hp_var(rng.standard_normal(ln), 2000 - 1800 * u), 9000) * (u ** 2.5) * a
         add(cym, s0)
 
     # --- 7. the 9.0 mid-hit (snap to black): kick + low-passed impact + tink; text tone at 9.1
     ln = int(1.2 * SR); tt = np.arange(ln) / SR
     kick = np.sin(2 * np.pi * np.cumsum(46 + 90 * np.exp(-tt / 0.05)) / SR) * exp_decay(ln, 0.22) * 0.65
-    imp = biquad_lp(rng.standard_normal(ln), 3000) * exp_decay(ln, 0.07) * 0.25
+    kick += np.sin(2 * np.pi * np.cumsum(120 + 260 * np.exp(-tt / 0.04)) / SR) * exp_decay(ln, 0.08) * 0.45  # 200-400 Hz body for phone speakers
+    imp = biquad_lp(rng.standard_normal(ln), 5000) * exp_decay(ln, 0.07) * 0.6
     add(kick + imp, mid_t)
     ln = int(0.5 * SR); tt = np.arange(ln) / SR
     tone = (np.sin(2 * np.pi * 220 * tt) + 0.5 * np.sin(2 * np.pi * 330 * tt)) * env_adsr(ln, 0.02, 0.1, 0.6, 0.3) * 0.10
     add(tone, text_t)
+    ln = int(0.3 * SR); tt = np.arange(ln) / SR
+    add(np.sin(2 * np.pi * 1320 * tt) * exp_decay(ln, 0.05) * 0.08, 10.35)                         # coral rule reveal
 
     # --- 8. THE DROP at 13.0: sub boom (with a 90-110 Hz body so phone speakers hear it) + click + noise boom + tail
     ln = int(2.4 * SR); tt = np.arange(ln) / SR
     f = 38 + 112 * np.exp(-tt / 0.09)
-    sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * (exp_decay(ln, 0.6) * 0.9 + exp_decay(ln, 1.5) * 0.3)
+    sub = np.sin(2 * np.pi * np.cumsum(f) / SR) * (exp_decay(ln, 0.6) * 0.9 + exp_decay(ln, 0.9) * 0.3)
     body = np.sin(2 * np.pi * np.cumsum(95 + 60 * np.exp(-tt / 0.06)) / SR) * exp_decay(ln, 0.25) * 0.45
-    clickd = biquad_hp(rng.standard_normal(int(0.004 * SR)), 2000) * 0.7
-    boom = biquad_lp(rng.standard_normal(ln), 900) * exp_decay(ln, 0.28) * 0.35
-    impact = soft_clip((sub + body) * 1.3, 1.6) * 0.95 + boom
+    clickd = biquad_lp(biquad_hp(rng.standard_normal(int(0.004 * SR)), 2000), 10000) * 0.25
+    boom = biquad_lp(rng.standard_normal(ln), 2500) * exp_decay(ln, 0.35) * 0.55
+    knock = np.sin(2 * np.pi * np.cumsum(250 + 350 * np.exp(-tt / 0.05)) / SR) * exp_decay(ln, 0.12) * 0.4   # 300-600 Hz knock so the hit reads on phones
+    impact = soft_clip((sub + body) * 1.3, 1.6) * 0.95 + boom + knock
     add(impact, drop_t); add(clickd, drop_t)
 
     # --- 9. logo shimmer (bell partials) at the settle, wordmark shimmer, date tick
@@ -321,15 +330,16 @@ def build(tl, seed=42):
     gate = np.ones(n)
     for s0, s1 in silences:
         i0, i1 = int(s0 * SR), int(s1 * SR)
-        gate[i0:i1] = np.linspace(0.5, 0.0, i1 - i0) ** 1.5
+        gate[i0:i1] = np.linspace(0.5, 0.0, i1 - i0) ** 4
     L *= gate; R *= gate
     L = biquad_hp(L, 24); R = biquad_hp(R, 24)
-    fade_out = np.clip((dur - t) / 0.30, 0, 1) ** 1.3
+    fade_out = np.clip((dur - t) / 0.8, 0, 1) ** 1.3
     fade_in = np.clip(t / 0.005, 0, 1)
     L *= fade_out * fade_in; R *= fade_out * fade_in
     L = soft_clip(L, 1.15); R = soft_clip(R, 1.15)
-    peak = max(np.max(np.abs(L)), np.max(np.abs(R)), 1e-9)
-    gain = 10 ** (-1.0 / 20) / peak
+    from scipy.signal import resample_poly
+    tp = max(np.max(np.abs(resample_poly(L, 4, 1))), np.max(np.abs(resample_poly(R, 4, 1))), 1e-9)   # true peak estimate
+    gain = 10 ** (-1.0 / 20) / tp
     return L * gain, R * gain
 
 def write_wav(path, L, R):

@@ -18,12 +18,14 @@ metin, tarih ve zamanlama tek bir dosyadan değiştirilip yeniden derlenebilir.
 |---|---|
 | 0–3 s | Karanlıkta ince bir ışık çizgisi yanar (ilk karede), eğilir ve hacimli bir ışık hüzmesine açılır; 2.4 s'de hüzme bir kartın köşesine sürtünür. |
 | 3–9 s | Ürünün yalnızca parçaları, hüzmenin aydınlattığı yerde: "Kâr Detayı" kart başlığı, maliyet sütununu tarayan ışık bandı, yeşil kâr rozetinin parlak zemindeki **yansıması**, "Net Kâr" satırına düşen ince ışık yarığı, 8'lik notalarda düşen maliyet plakaları, coral % işaretinin makro yayı. 8.5–9.0 s'de hüzme lense döner, beyaza yanar, 9.0'da siyaha kesilir. Kesmeler 120 BPM ızgarasında. |
-| 9–13 s | Işık sütunu soldan sağa geçerken metin harf harf belirir: **YAKINDA / her şey / net.** (coral vurgu "net."). 12.4'ten itibaren metin çözülür, coral çizgi yukarı çekilip bir noktaya toplanır. |
-| 13–15 s | **Drop:** nokta Melontik diskine açılır, % işareti ışıkla çizilir, "melontik" yazısı harf harf yükselir, coral çizgi ve **lansman tarihi** gelir; son kare sabit bir poster karesidir. |
+| 9–13 s | Siyah 3 kare tutulur, ışık sütunu soldan girer ve metin harf harf belirir (ilk harf ~9.3 s): **YAKINDA / her şey / net.** (coral vurgu "net."). Arka plan yavaşça yaklaşır; 12.4'ten itibaren metin çözülür, coral çizgi yukarı çekilip bir noktaya toplanır. |
+| 13–15 s | **Drop:** nokta Melontik diskine açılır, % işareti ışıkla çizilir (13.45'te çan sesiyle tamamlanır), "melontik" harf harf yükselir, coral çizgi ve **lansman tarihi** 13.6–14.0 arasında gelir ve ~1 s sabit durur; son kare temiz bir poster karesidir. |
 
 Ses: sub drone + açılan pad, 120 BPM nabız (7–9 s'de 8'liklere bölünür), her kesmede cam "tink" (A minör pentatonik),
-iki yükselen riser, 8.92 ve 12.9'da nefes boşlukları, 13.0'da sub + gövde + click ile drop, logo yerleşince çan parıltısı,
-A minör add9 → A majör çözülüş.
+iki yükselen riser ve hızlanan tik ruloları, 8.875 ve 12.9'da nefes boşlukları, 13.0'da sub + 90–150 Hz gövde + 300–600 Hz
+vuruş ile drop (telefon hoparlöründe de okunur), logo yerleşince çan parıltısı, A minör add9 → A majör çözülüş.
+Master gerçek tepe -1 dBTP'ye normalize edilir (4× örnekleme). `python3 scripts/qa_check.py` süre, kare sayısı, drop hizası,
+gerçek tepe, patlama, güvenli alan ve son kare sabitliğini denetler.
 
 ## Metin ve tarihi değiştirme
 
@@ -40,7 +42,8 @@ A minör add9 → A majör çözülüş.
   (`tagline_alternatives` altında hazır seçenekler var; `accent_line` coral renkli satırı seçer, 0 = yok).
 * `caption` — tarihin altına isteğe bağlı küçük not (ör. `"Chrome Eklentisi"`); boşsa çizilmez.
 
-Değişiklikten sonra `bash scripts/build.sh` çalıştırın (yaklaşık 5 dk).
+Değişiklikten sonra `bash scripts/build.sh` çalıştırın (yaklaşık 8 dk); yalnızca bir aralığı yeniden çizmek için
+`node scripts/render_frames.cjs --out build/frames --start 13 --end 15` ve ardından `bash scripts/encode.sh`.
 
 ## Derleme
 
@@ -68,12 +71,13 @@ scripts/render_frames.cjs   Playwright kare dışa aktarıcı
 scripts/make_audio.py       prosedürel müzik/ses tasarımı
 scripts/prepare_fragments.py lansman videosundan UI fragmanlarını kesen betik (kaynak video repoda değil)
 scripts/build.sh            uçtan uca derleme
-assets/fonts          Montserrat + Inter (OFL), latin + latin-ext alt kümeleri
+assets/fonts          Montserrat + Inter değişken fontları (OFL, wght 100–900), latin + latin-ext alt kümeleri (woff2)
 assets/fragments      lansman videosundan kesilmiş ürün parçaları (PNG)
 ```
 
 ## Marka notları
 
-Coral `#FD7755`, mürekkep `#25100C`, açık coral `#FEE3DC`, kâr yeşili `#5CBA39`; logo işareti vektörel olarak
-kapanış kartından ölçülerek yeniden çizildi; yazı tipi Montserrat ExtraBold (marka yazısıyla piksel düzeyinde örtüşür).
-Metinler Instagram güvenli alanında (üstten 250 px, alttan 340 px) kalır.
+Coral `#FD7755`, mürekkep `#25100C`, açık coral `#FEE3DC`, kâr yeşili `#5CBA39`; logo işareti kapanış kartındaki
+oranlar ölçülerek vektörel olarak yeniden çizildi (halka merkezleri ±0.29R, çizgi 0.137R, ok kolu 0.242R); yazı tipi
+Montserrat ExtraBold, wordmark/disk oranı (~3.3× disk çapı) markanın kendi kapanış kartıyla eşleşir. Metinler Instagram
+güvenli alanında (üstten 250 px, alttan 340 px) kalır. Kodlama BT.709 sınırlı aralık olarak etiketlenir ve dönüştürülür.

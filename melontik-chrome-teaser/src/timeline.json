@@ -59,11 +59,11 @@
     "drop": 13.0,
     "logo_settle": 13.45,
     "wordmark_in": 13.3,
-    "date_in": 13.8
+    "date_in": 13.6
   },
   "silences": [
     [
-      8.92,
+      8.875,
       9.0
     ],
     [

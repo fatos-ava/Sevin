@@ -21,7 +21,7 @@
 <script>
 (async () => {
   const canvas = document.getElementById('c');
-  const ctx = canvas.getContext('2d', { alpha: false });
+  const ctx = canvas.getContext('2d', { alpha: true });   // alpha:true avoids LCD sub-pixel text antialiasing (colour fringes on small type)
   const timeline = window.TIMELINE || await (await fetch('timeline.json')).json(); // exporter injects window.TIMELINE (fetch is blocked on file://)
   // fonts: canvas does not trigger font loading, so load every face explicitly
   const faces = ['400 10px Montserrat','500 10px Montserrat','600 10px Montserrat','700 10px Montserrat','800 10px Montserrat','900 10px Montserrat','400 10px Inter','500 10px Inter','600 10px Inter'];

@@ -158,12 +158,13 @@
     if (fill) { ctx.fillStyle = fill; ctx.beginPath(); ctx.arc(0, 0, R, 0, TAU); ctx.fill(); }
     ctx.globalAlpha *= glyphAlpha;
     ctx.strokeStyle = glyph; ctx.fillStyle = glyph; ctx.lineCap = 'butt'; ctx.lineJoin = 'miter';
+    // geometry measured on the client's end card, in disc-radius units
     const w = 0.137 * R;
     ctx.lineWidth = w;
-    ctx.beginPath(); ctx.arc(-0.287 * R, -0.287 * R, 0.19 * R, 0, TAU); ctx.stroke();
-    ctx.beginPath(); ctx.arc(0.313 * R, 0.313 * R, 0.19 * R, 0, TAU); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(-0.327 * R, 0.358 * R); ctx.lineTo(0.30 * R, -0.27 * R); ctx.stroke();
-    const ox = 0.43 * R, oy = -0.40 * R, arm = 0.32 * R;
+    ctx.beginPath(); ctx.arc(-0.290 * R, -0.290 * R, 0.19 * R, 0, TAU); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0.290 * R, 0.290 * R, 0.19 * R, 0, TAU); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-0.327 * R, 0.327 * R); ctx.lineTo(0.27 * R, -0.27 * R); ctx.stroke();   // slash through the centre
+    const ox = 0.391 * R, oy = -0.389 * R, arm = 0.242 * R;                                              // arrowhead: two bars from the outer corner
     ctx.fillRect(ox - arm, oy, arm, w);
     ctx.fillRect(ox - w, oy, w, arm);
     ctx.restore();
@@ -171,10 +172,10 @@
   // Only the glyph (for outlines / light tracing), same geometry, stroked paths
   function logoGlyphPath(ctx, cx, cy, R) {
     ctx.translate(cx, cy);
-    ctx.beginPath(); ctx.arc(-0.287 * R, -0.287 * R, 0.19 * R, 0, TAU);
-    ctx.moveTo(0.313 * R + 0.19 * R, 0.313 * R); ctx.arc(0.313 * R, 0.313 * R, 0.19 * R, 0, TAU);
-    ctx.moveTo(-0.327 * R, 0.358 * R); ctx.lineTo(0.30 * R, -0.27 * R);
-    const ox = 0.43 * R, oy = -0.40 * R, arm = 0.32 * R, w = 0.137 * R;
+    ctx.beginPath(); ctx.arc(-0.290 * R, -0.290 * R, 0.19 * R, 0, TAU);
+    ctx.moveTo(0.290 * R + 0.19 * R, 0.290 * R); ctx.arc(0.290 * R, 0.290 * R, 0.19 * R, 0, TAU);
+    ctx.moveTo(-0.327 * R, 0.327 * R); ctx.lineTo(0.27 * R, -0.27 * R);
+    const ox = 0.391 * R, oy = -0.389 * R, arm = 0.242 * R, w = 0.137 * R;
     ctx.moveTo(ox - arm, oy + w / 2); ctx.lineTo(ox - w / 2, oy + w / 2); ctx.lineTo(ox - w / 2, oy + arm);
     ctx.translate(-cx, -cy);
   }

@@ -10,8 +10,10 @@ mkdir -p output
 "$FFMPEG" -hide_banner -loglevel error -y \
   -framerate $FPS -i build/frames/f_%04d.png \
   -i build/audio.wav \
+  -vf "scale=in_range=pc:out_range=tv:out_color_matrix=bt709" \
   -c:v libx264 -preset slow -crf 17 -pix_fmt yuv420p -profile:v high -level 4.2 \
-  -color_primaries bt709 -color_trc bt709 -colorspace bt709 \
+  -tune film -x264-params aq-mode=3:aq-strength=1.1:deblock=-1,-1 \
+  -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv \
   -c:a aac -b:a 192k -ar 48000 -shortest -movflags +faststart \
   "output/${OUT_NAME}.mp4"
 "$FFMPEG" -hide_banner -loglevel error -y -i "output/${OUT_NAME}.mp4" \

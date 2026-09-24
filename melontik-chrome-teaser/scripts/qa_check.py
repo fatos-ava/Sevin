@@ -50,6 +50,14 @@ with tempfile.TemporaryDirectory() as tmp:
     check(abs(t_on - drop) <= 1.5 / FPS, f'drop transient at {t_on:.3f}s (target {drop}, tolerance 1.5 frames)')
     gap_rms = 20 * np.log10(np.sqrt(np.mean(a[int(12.92 * sr):int(12.99 * sr)] ** 2)) + 1e-9)
     check(gap_rms < -30, f'pre-drop breath rms {gap_rms:.1f} dBFS (< -30)')
+    # true peak (4x oversampled) of the delivered AAC; phone-speaker band: the drop must be louder than the swell before it
+    from scipy.signal import resample_poly, butter, lfilter
+    tp = 20 * np.log10(np.max(np.abs(resample_poly(a, 4, 1))) + 1e-9)
+    check(tp <= -0.5, f'true peak {tp:.2f} dBTP (<= -0.5; AAC may add a little overshoot)')
+    bb, ab = butter(2, [300 / (sr / 2), 8000 / (sr / 2)], 'band'); ph = lfilter(bb, ab, a)
+    def rms_db(x, t0, t1): seg = x[int(t0 * sr):int(t1 * sr)]; return 20 * np.log10(np.sqrt(np.mean(seg ** 2)) + 1e-9)
+    sw, dr = rms_db(ph, 12.5, 12.9), rms_db(ph, drop, drop + 0.5)
+    check(dr > sw, f'phone band (300 Hz-8 kHz): drop {dr:.1f} dBFS louder than swell {sw:.1f} dBFS')
     # 4. blow-out: share of near-white pixels on beam frames (whiteout frame is allowed)
     for n in (90, 135, 180, 210, 240, 255):
         f = frame(n); white = np.mean((f > 250).all(axis=2))
