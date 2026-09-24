@@ -1,0 +1,141 @@
+{
+  "duration": 15.0,
+  "fps": 30,
+  "bpm": 120,
+  "tagline": {
+    "kicker": "YAKINDA",
+    "line1": "her şey",
+    "line2": "net.",
+    "accent_line": 2
+  },
+  "launch_date": "GG.AA.YYYY",
+  "brand": {
+    "coral": "#FD7755",
+    "coral_deep": "#E85F3D",
+    "ink": "#25100C",
+    "pale": "#FEE3DC",
+    "green": "#5CBA39",
+    "bg": "#07060A",
+    "bg2": "#120A0C"
+  },
+  "blocks": {
+    "open": {
+      "start": 0.0,
+      "end": 3.0
+    },
+    "parts": {
+      "start": 3.0,
+      "end": 9.0
+    },
+    "text": {
+      "start": 9.0,
+      "end": 13.0
+    },
+    "brand": {
+      "start": 13.0,
+      "end": 15.0
+    }
+  },
+  "cuts": [
+    3.0,
+    4.0,
+    5.0,
+    6.0,
+    7.0,
+    7.25,
+    7.5,
+    7.75,
+    8.0,
+    8.5
+  ],
+  "hits": {
+    "ignite": 0.0,
+    "graze": 2.4,
+    "flare_peak": 8.9,
+    "mid_hit": 9.0,
+    "text_start": 9.1,
+    "text_out": 12.4,
+    "gather": 12.9,
+    "drop": 13.0,
+    "logo_settle": 13.45,
+    "wordmark_in": 13.3,
+    "date_in": 13.6
+  },
+  "silences": [
+    [
+      8.875,
+      9.0
+    ],
+    [
+      12.9,
+      13.0
+    ]
+  ],
+  "shots": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "name": "ignition_sweep"
+    },
+    {
+      "start": 3.0,
+      "end": 4.0,
+      "name": "A_kar_detayi_header"
+    },
+    {
+      "start": 4.0,
+      "end": 5.0,
+      "name": "B_ledger_scan"
+    },
+    {
+      "start": 5.0,
+      "end": 6.0,
+      "name": "C_pill_reflection"
+    },
+    {
+      "start": 6.0,
+      "end": 7.0,
+      "name": "D_netkar_slit"
+    },
+    {
+      "start": 7.0,
+      "end": 8.0,
+      "name": "E_cost_cascade"
+    },
+    {
+      "start": 8.0,
+      "end": 8.5,
+      "name": "F_percent_macro"
+    },
+    {
+      "start": 8.5,
+      "end": 9.0,
+      "name": "flare"
+    },
+    {
+      "start": 9.0,
+      "end": 13.0,
+      "name": "tagline"
+    },
+    {
+      "start": 13.0,
+      "end": 15.0,
+      "name": "endcard"
+    }
+  ],
+  "caption": "",
+  "tagline_alternatives": [
+    {
+      "kicker": "",
+      "line1": "Her şey",
+      "line2": "değişmek üzere.",
+      "accent_line": 0
+    },
+    {
+      "kicker": "",
+      "line1": "Kâr artık",
+      "line2": "görünür.",
+      "accent_line": 2
+    }
+  ]
+}
