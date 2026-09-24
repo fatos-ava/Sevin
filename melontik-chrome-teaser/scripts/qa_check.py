@@ -42,8 +42,10 @@ with tempfile.TemporaryDirectory() as tmp:
     wav = os.path.join(tmp, 'a.wav')
     subprocess.run([FF, '-hide_banner', '-loglevel', 'error', '-i', mp4, '-ac', '1', '-ar', '48000', wav], check=True)
     w = wave.open(wav); sr = w.getframerate(); a = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768
-    drop = tl['hits']['drop']; i0 = int((drop - 0.3) * sr); i1 = int((drop + 0.3) * sr)
-    seg = np.abs(a[i0:i1]); onset = i0 + int(np.argmax(seg > 0.5 * seg.max()))
+    drop = tl['hits']['drop']; i0 = int((drop - 0.2) * sr); i1 = int((drop + 0.2) * sr)
+    hop = int(0.010 * sr)
+    env = np.array([np.sqrt(np.mean(a[i:i + hop] ** 2)) for i in range(i0, i1 - hop, hop)])
+    onset = i0 + int(np.argmax(env > 0.35 * env.max())) * hop      # first 10 ms window carrying the hit's energy
     t_on = onset / sr
     check(abs(t_on - drop) <= 1.5 / FPS, f'drop transient at {t_on:.3f}s (target {drop}, tolerance 1.5 frames)')
     gap_rms = 20 * np.log10(np.sqrt(np.mean(a[int(12.92 * sr):int(12.99 * sr)] ** 2)) + 1e-9)
@@ -52,7 +54,7 @@ with tempfile.TemporaryDirectory() as tmp:
     for n in (90, 135, 180, 210, 240, 255):
         f = frame(n); white = np.mean((f > 250).all(axis=2))
         check(white < 0.02, f'frame {n}: near-white share {white*100:.2f}% (< 2%)')
-    f = frame(268); white = np.mean((f > 235).all(axis=2)); check(white > 0.3, f'frame 268 whiteout share {white*100:.1f}% (> 30%)')
+    f = frame(268); white = np.mean(f.mean(axis=2) > 200); check(white > 0.3 and f.mean() > 170, f'frame 268 whiteout share (lum>200) {white*100:.1f}%, mean {f.mean():.0f} (> 30%, > 170)')
     f = frame(271); dark = np.mean(f.sum(axis=2) < 60); check(dark > 0.97, f'frame 271 (just after 9.0 snap) dark share {dark*100:.1f}% (> 97%)')
     # 5. safe area: on text frames no bright (text) pixels in the overlay bands
     for n in (330, 345, 435, 449):

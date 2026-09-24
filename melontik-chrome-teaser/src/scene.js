@@ -564,7 +564,8 @@
         drawMotes(t, bs, { gateByBeam: true, base: t >= 3 ? 0.03 : 0 });
         if (t >= 8.5) drawFlare(t);
         ctx.restore();
-        vignette(ctx, W, H, 0.62, 0.78);
+        const woK = ease.inQuart(span(t, 8.55, 8.9));           // the whiteout also lifts the vignette
+        vignette(ctx, W, H, 0.62 * (1 - 0.85 * woK), 0.78);
       } else if (t < 13.0) {
         drawBase(t);
         const bk = smoothstep(9.0, 9.1, t);                    // black holds 3 frames after the snap
