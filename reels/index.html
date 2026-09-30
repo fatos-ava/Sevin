@@ -8,7 +8,7 @@
 <style>
   :root {
     --w: 1080px; --h: 1920px;
-    --orange: #FF7A4D; --coral: #FF5A5F; --deep: #B8392C; --brown: #4A1F14; --ink: #1C0E0A;
+    --orange: #FF7A4D; --coral: #FF7855; --deep: #0A0706; --brown: #4A1F14; --ink: #1C0E0A;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: #111; height: 100%; overflow: hidden; }
@@ -24,15 +24,15 @@
   /* ---------- background ---------- */
   #bg { position: absolute; inset: 0; }
   .blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .85; }
-  #b1 { width: 900px; height: 900px; background: #FFB36B; }
-  #b2 { width: 1000px; height: 1000px; background: #FF3D6E; }
-  #b3 { width: 800px; height: 800px; background: #8E1F2A; }
+  #b1 { width: 900px; height: 900px; background: #FF7855; }
+  #b2 { width: 1000px; height: 1000px; background: #FF7855; opacity: .55; }
+  #b3 { width: 800px; height: 800px; background: #000; }
   #streaks { position: absolute; inset: -400px; opacity: .14;
     background: repeating-linear-gradient(115deg, #fff 0 2px, transparent 2px 120px); }
   #grain { position: absolute; inset: 0; opacity: .08; mix-blend-mode: overlay;
     background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 6px 6px; }
   #vignette { position: absolute; inset: 0;
-    background: radial-gradient(ellipse at center, transparent 45%, rgba(40,6,4,.45) 100%); }
+    background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.55) 100%); }
 
   /* ---------- logo cards ---------- */
   .card {
@@ -41,7 +41,7 @@
   }
   #mCard { background: #fff; box-shadow: 0 30px 80px rgba(90,20,10,.35); }
   #eCard { background: linear-gradient(135deg, #2A140E, #140806);
-           box-shadow: 0 30px 80px rgba(40,5,0,.45); border: 2px solid rgba(255,255,255,.12); }
+           box-shadow: 0 30px 80px rgba(40,5,0,.45); border: 3px solid #FF7855; }
   .mIcon {
     width: 118px; height: 118px; border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #FF9B72, #F2613F 70%);
@@ -65,13 +65,13 @@
   .w { display: inline-block; opacity: 0; }
   #l1 { font-size: 54px; margin-bottom: 18px; font-weight: 500; }
   #l1 .ty { font-style: italic; font-weight: 800; color: #fff; }
-  #tyChip { display: inline-block; background: #F27A1A; padding: 4px 26px 10px; border-radius: 18px;
+  #tyChip { display: inline-block; background: #FF7855; padding: 4px 26px 10px; border-radius: 18px;
             transform: rotate(-3deg); box-shadow: 0 10px 30px rgba(120,40,0,.35); }
   #l2, #l3 { font-size: 104px; font-weight: 900; letter-spacing: -2px; line-height: 1.08; }
   #l3 { margin-top: 6px; }
   .hl { position: relative; }
   .hl::before { content: ""; position: absolute; left: 4px; right: 4px; bottom: -4px; height: 16px;
-                background: #FFD166; border-radius: 12px; z-index: -1; transform-origin: left center;
+                background: #FF7855; border-radius: 12px; z-index: -1; transform-origin: left center;
                 transform: scaleX(var(--s, 0)) skewX(-8deg); }
   .hl { isolation: isolate; }
 
@@ -164,7 +164,7 @@ function place(el, cx, cy, { s = 1, r = 0, o = 1 } = {}) {
 // ---------- confetti (seeded, deterministic) ----------
 let seed = 7;
 const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-const COLORS = ['#FFD166', '#fff', '#FFB36B', '#2A140E', '#FF3D6E'];
+const COLORS = ['#FFD166', '#fff', '#FF7855', '#FF9A7E', '#FF7855'];
 const sparks = Array.from({ length: 70 }, () => {
   const el = document.createElement('div');
   el.className = 'spark';
@@ -181,7 +181,7 @@ function render(t) {
   // ----- background: living gradient -----
   const hue = Math.sin(t / DUR * Math.PI * 2);
   $('stage').style.background =
-    `linear-gradient(${150 + hue * 20}deg, #FF8A4C 0%, #FF5A5F ${45 + hue * 8}%, #B8392C 100%)`;
+    `linear-gradient(${150 + hue * 20}deg, #FF7855 0%, #C4553B ${30 + hue * 6}%, #2A120C ${62 + hue * 6}%, #000 100%)`;
   const bt = t / DUR * Math.PI * 2;
   $('b1').style.transform = `translate(${-250 + Math.sin(bt) * 160}px, ${-200 + Math.cos(bt) * 200}px)`;
   $('b2').style.transform = `translate(${450 + Math.cos(bt) * 180}px, ${700 + Math.sin(bt * 2) * 160}px)`;
