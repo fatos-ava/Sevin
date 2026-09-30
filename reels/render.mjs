@@ -5,6 +5,7 @@ import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
+import { existsSync } from 'node:fs';
 
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const out = process.argv[2] || path.join(dir, 'melontik-x-eadam-reels.mp4');
@@ -16,8 +17,15 @@ await page.goto(pathToFileURL(path.join(dir, 'index.html')).href + '?capture');
 await page.evaluate(() => document.fonts.ready);
 const dur = await page.evaluate(() => window.DUR);
 
+// assets/music.wav varsa (python3 reels/music.py ile üretilir) sese eklenir, -14 LUFS'a normalize edilir.
+const music = path.join(dir, 'assets', 'music.wav');
+const audio = existsSync(music)
+  ? ['-i', music, '-map', '0:v', '-map', '1:a', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11',
+     '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-shortest']
+  : [];
+
 const ff = spawn(process.env.FFMPEG || 'ffmpeg', [
-  '-y', '-f', 'image2pipe', '-framerate', String(fps), '-i', '-',
+  '-y', '-f', 'image2pipe', '-framerate', String(fps), '-i', '-', ...audio,
   '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '17', '-preset', 'slow',
   '-movflags', '+faststart', out,
 ], { stdio: ['pipe', 'inherit', 'inherit'] });
