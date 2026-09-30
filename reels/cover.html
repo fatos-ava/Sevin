@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melontik × e-adam Reels Kapağı</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root { --brand: #FF7855; --brown: #4A1F14; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #000; }
+  body { width: 1080px; height: 1920px; font-family: Montserrat, sans-serif; color: #fff; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden;
+           background: linear-gradient(170deg, #FF7855 0%, #9C3F2A 34%, #1A0C08 66%, #000 100%); }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  #g1 { width: 1100px; height: 1100px; left: -300px; top: -420px; background: var(--brand); opacity: .55; }
+  #g2 { width: 900px; height: 900px; left: 320px; top: 1320px; background: #000; opacity: .6; }
+  #grid { position: absolute; inset: 0; opacity: .07;
+    background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+    background-size: 120px 120px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent); }
+  #frame { position: absolute; inset: 56px; border: 1px solid rgba(255,255,255,.18); border-radius: 36px; }
+
+  /* content kept inside the 3:4 profile-grid crop (y 240–1680) */
+  #content { position: absolute; left: 0; right: 0; top: 440px; display: flex; flex-direction: column; align-items: center; }
+
+  #eyebrow { display: flex; align-items: center; gap: 22px; font-size: 30px; font-weight: 600; letter-spacing: 8px; }
+  #eyebrow .rule { width: 90px; height: 2px; background: rgba(255,255,255,.7); }
+
+  .card { width: 760px; height: 200px; border-radius: 30px;
+          display: flex; align-items: center; justify-content: center; gap: 26px; }
+  #mCard { margin-top: 80px; background: #fff; box-shadow: 0 24px 60px rgba(0,0,0,.25); }
+  #eCard { background: #0B0706; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+  .mIcon { width: 116px; height: 116px; border-radius: 50%; display: grid; place-items: center;
+           background: radial-gradient(circle at 35% 30%, #FF9B7C, var(--brand) 70%); }
+  .mWord { font-family: Poppins, sans-serif; font-weight: 800; font-size: 102px; color: var(--brown);
+           letter-spacing: -3px; line-height: 1; padding-bottom: 8px; }
+  #eCard img { width: 530px; height: auto; }
+
+  #xRow { display: flex; align-items: center; gap: 30px; width: 760px; height: 150px; }
+  #xRow .rule { flex: 1; height: 1px; background: rgba(255,255,255,.45); }
+  #xRow span { font-size: 70px; font-weight: 300; line-height: 1; transform: translateY(-4px); }
+
+  #copy { margin-top: 90px; text-align: center; }
+  #l1 { font-size: 50px; font-weight: 500; color: rgba(255,255,255,.88); }
+  #l1 em { font-style: italic; font-weight: 700; color: var(--brand); }
+  #l2 { margin-top: 12px; font-size: 84px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.08; }
+  #accent { width: 140px; height: 6px; border-radius: 3px; background: var(--brand); margin: 44px auto 0; }
+
+  /* crop guides — only with ?guides */
+  .guide { position: absolute; left: 0; right: 0; border: 3px dashed #0f0; pointer-events: none; display: none; }
+  body.guides .guide { display: block; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="glow" id="g1"></div>
+  <div class="glow" id="g2"></div>
+  <div id="grid"></div>
+  <div id="frame"></div>
+
+  <div id="content">
+    <div id="eyebrow">
+      <div class="rule"></div>
+      <svg width="26" height="34" viewBox="0 0 24 32"><path fill="#fff" d="M12 0C5.4 0 0 5.2 0 11.7 0 20.4 12 32 12 32s12-11.6 12-20.3C24 5.2 18.6 0 12 0zm0 16.3a4.8 4.8 0 1 1 0-9.6 4.8 4.8 0 0 1 0 9.6z"/></svg>
+      <span>AJANS İŞBİRLİĞİ</span>
+      <div class="rule"></div>
+    </div>
+
+    <div class="card" id="mCard">
+      <div class="mIcon">
+        <svg width="72" height="72" viewBox="0 0 76 76" fill="none" stroke="#FFE7DE" stroke-width="9" stroke-linecap="round">
+          <circle cx="21" cy="21" r="11"/><circle cx="55" cy="55" r="11"/><line x1="60" y1="14" x2="16" y2="62"/>
+        </svg>
+      </div>
+      <div class="mWord">melontik</div>
+    </div>
+    <div id="xRow"><div class="rule"></div><span>×</span><div class="rule"></div></div>
+    <div class="card" id="eCard"><img src="assets/eadam-logo.png" alt="e-adam"></div>
+
+    <div id="copy">
+      <div id="l1"><em>Trendyol</em> mağaza yönetiminde</div>
+      <div id="l2">Melontik teknolojisine<br>güveniyor</div>
+      <div id="accent"></div>
+    </div>
+  </div>
+
+  <div class="guide" style="top:240px;height:1440px"></div>
+  <div class="guide" style="top:420px;height:1080px;border-color:#ff0"></div>
+</div>
+<script>
+  if (new URLSearchParams(location.search).has('guides')) document.body.classList.add('guides');
+</script>
+</body>
+</html>
