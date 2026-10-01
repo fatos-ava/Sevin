@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Melontik Partner Lansman</title>
+<style>
+@font-face{font-family:M;src:url(assets/m1.ttf);font-weight:400}
+@font-face{font-family:M;src:url(assets/m2.ttf);font-weight:500}
+@font-face{font-family:M;src:url(assets/m3.ttf);font-weight:600}
+@font-face{font-family:M;src:url(assets/m4.ttf);font-weight:700}
+@font-face{font-family:M;src:url(assets/m5.ttf);font-weight:800}
+:root{--a:#FF7855;--ink:#121212;--mut:#5f5a58;--line:#f1e4df;--soft:#fff4f0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#fff}
+body{font-family:M,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.scene{position:absolute;inset:0;opacity:0}
+.abs{position:absolute}
+.a{color:var(--a)}
+.kick{font-size:22px;font-weight:700;letter-spacing:.16em;color:var(--a);text-transform:uppercase}
+.h{font-weight:800;letter-spacing:-.02em;line-height:1.12}
+.sub{font-size:34px;font-weight:500;color:var(--mut);line-height:1.35}
+.bul{display:flex;gap:18px;align-items:flex-start;font-size:31px;font-weight:600;line-height:1.35;color:#2a2523}
+.bul i{flex:none;width:14px;height:14px;border-radius:50%;background:var(--a);margin-top:15px}
+.center{left:0;right:0;text-align:center}
+.shotbox{position:absolute;border-radius:26px;box-shadow:0 30px 80px rgba(60,25,10,.13),0 4px 14px rgba(60,25,10,.06);background:#fff}
+.shotclip{position:absolute;inset:0;border-radius:26px;overflow:hidden}
+.shot{position:absolute;left:0;top:0;transform-origin:0 0}
+.shot img{display:block}
+.ring{position:absolute;border-radius:10px;box-shadow:0 0 0 3px var(--a),0 0 0 9px rgba(255,120,85,.22);opacity:0}
+.win{position:absolute;background:#fff;border-radius:26px;border:1px solid #f0e3de;box-shadow:0 30px 80px rgba(60,25,10,.13),0 4px 14px rgba(60,25,10,.06);overflow:hidden}
+.win .bar{height:44px;background:#fbf6f4;border-bottom:1px solid #f3e8e4;display:flex;gap:10px;align-items:center;padding-left:22px}
+.win .bar b{width:12px;height:12px;border-radius:50%;background:#e6dcd8}
+.tabs{display:flex;gap:8px;background:#faf5f3;border:1px solid #f0e6e2;border-radius:14px;padding:7px;margin:22px 26px 0}
+.tabs span{font-size:19px;font-weight:600;color:#7a7270;padding:10px 18px;border-radius:10px}
+.tabs span.on{background:#fff;color:#c4472a;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.blur{display:inline-block;height:16px;border-radius:8px;background:linear-gradient(90deg,#cfc6c3,#e2dbd8 40%,#cbc2bf);filter:blur(3px);vertical-align:middle}
+.field{border:1px solid #efe4e0;border-radius:14px;padding:14px 18px;position:relative}
+.field label{display:block;font-size:16px;font-weight:600;color:#8a817e;margin-bottom:8px}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--a);color:#fff;font-weight:700;border-radius:999px}
+.pill{display:inline-block;border-radius:999px;background:var(--a);color:#fff;font-weight:700;letter-spacing:.14em}
+</style>
+</head>
+<body>
+
+<!-- reusable logo -->
+<template id="logoIcon">
+<svg viewBox="0 0 100 100" width="100%" height="100%"><circle cx="50" cy="50" r="50" fill="#FF7855"/><circle cx="35" cy="35" r="9.5" fill="none" stroke="#fff" stroke-width="7"/><circle cx="65" cy="65" r="9.5" fill="none" stroke="#fff" stroke-width="7"/><line x1="68" y1="30" x2="32" y2="70" stroke="#fff" stroke-width="7.5" stroke-linecap="round"/></svg>
+</template>
+
+<!-- ============ SCENE 1  0–7 ============ -->
+<section class="scene" data-s="0,7" id="s1">
+  <div class="abs center" id="s1logo" style="top:330px;display:flex;justify-content:center;align-items:center;gap:26px">
+    <div class="li" style="width:118px;height:118px"></div>
+    <div style="font-size:112px;font-weight:800;letter-spacing:-.035em;line-height:1">melontik</div>
+  </div>
+  <div class="abs center" data-in="1.3" style="top:480px"><span class="pill" style="font-size:22px;padding:12px 26px">YENİ · PARTNER PROGRAMI</span></div>
+  <div class="abs center h" data-in="2.2" style="top:575px;font-size:68px">Müşteri yönlendirin,<br>her ödemeden <span class="a">hakediş</span> kazanın.</div>
+  <div class="abs center sub" data-in="3.6" style="top:770px">Ajanslar ve danışmanlar için</div>
+</section>
+
+<!-- ============ SCENE 2  7–19 ============ -->
+<section class="scene" data-s="7,19" id="s2">
+  <div class="abs center h" data-in="7.4" style="top:150px;font-size:70px">Her ödemede <span class="a">%15</span> · Bitiş süresi yok</div>
+  <div class="abs" style="top:285px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:14px">
+    <div class="bul" data-in="9.6"><i></i>KDV’siz tutar üzerinden, her abonelik ödemesinden</div>
+    <div class="bul" data-in="13.0"><i></i>Müşteriniz abone kaldıkça siz de kazanırsınız</div>
+  </div>
+  <div class="shotbox" data-in="7.9" style="left:179px;top:500px;width:1562px;height:356px">
+    <div class="shotclip"><div class="shot" style="transform:scale(1.3)"><img src="assets/g1.png" width="1202" height="274">
+      <div class="ring" data-hl="9.6,12.2" style="left:47px;top:161px;width:332px;height:80px;border-radius:12px"></div>
+      <div class="ring" data-hl="12.2,14.8" style="left:434px;top:161px;width:333px;height:80px;border-radius:12px"></div>
+      <div class="ring" data-hl="14.8,99" style="left:821px;top:161px;width:334px;height:80px;border-radius:12px"></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ SCENE 3  19–31 ============ -->
+<section class="scene" data-s="19,31" id="s3">
+  <div id="s3intro" class="abs" style="left:0;right:0;top:0;bottom:0">
+    <div class="shotbox" style="left:183px;top:330px;width:1554px;height:398px;box-shadow:none;background:#f9f9f9">
+      <div class="shotclip"><img src="assets/g2.png" width="1554" height="398" style="display:block"></div>
+    </div>
+  </div>
+  <div id="s3main" class="abs" style="left:0;right:0;top:0;bottom:0;opacity:0">
+    <div class="shotbox" id="s3shot" style="left:120px;top:345px;width:914px;height:389px">
+      <div class="shotclip"><div class="shot" style="transform:scale(1.45)"><img src="assets/g3.png" width="630" height="268">
+        <div class="ring" data-hl="23.3,99" style="left:536px;top:93px;width:72px;height:22px;border-radius:6px"></div>
+        <div class="ring" data-hl="23.8,99" style="left:536px;top:167px;width:72px;height:23px;border-radius:6px"></div>
+        <div class="ring" data-hl="25.6,99" style="left:246px;top:236px;width:98px;height:20px;border-radius:6px"></div>
+      </div></div>
+    </div>
+    <div class="abs" style="left:1110px;top:330px;width:700px">
+      <div class="kick" data-in="22.6">Partner kodu ve linki</div>
+      <div class="h" data-in="22.6" style="font-size:54px;margin-top:20px">Kodunuzu paylaşın, linkiniz kodu kendisi taşısın</div>
+      <div style="margin-top:44px;display:flex;flex-direction:column;gap:18px">
+        <div class="bul" data-in="25.4"><i></i>Kod üyelik formuna kendiliğinden dolar</div>
+        <div class="bul" data-in="27.9"><i></i>Linkin süresi dolmaz</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCENE 4  31–41 ============ -->
+<section class="scene" data-s="31,41" id="s4">
+  <div class="abs" style="left:120px;top:360px;width:780px">
+    <div class="kick" data-in="31.3">Yönlendirdiğim kullanıcılar</div>
+    <div class="h" data-in="31.3" style="font-size:56px;margin-top:20px">Kimi getirdiğinizi, kimin abone kaldığını görün</div>
+    <div class="sub" data-in="34.0" style="margin-top:40px;font-size:29px;font-weight:600;color:#2a2523">Kayıt tarihi <span class="a">·</span> Abonelik durumu <span class="a">·</span> Toplam kazanç</div>
+  </div>
+  <div id="s4zoom" class="abs" style="inset:0;transform-origin:1460px 520px"><div class="shotbox" data-in="31.5" style="left:930px;top:300px;width:852px;height:439px">
+    <div class="shotclip"><div><div class="shot" style="transform:scale(1.6)"><img src="assets/g4.png" width="532" height="274">
+      <div class="ring" data-hl="34.6,99" style="left:280px;top:117px;width:40px;height:20px;border-radius:7px"></div>
+      <div class="ring" data-hl="35.0,99" style="left:280px;top:148px;width:40px;height:20px;border-radius:7px"></div>
+      <div class="ring" data-hl="35.4,99" style="left:280px;top:177px;width:40px;height:20px;border-radius:7px;box-shadow:0 0 0 3px #a9a09d,0 0 0 9px rgba(150,140,136,.2)"></div>
+      <div class="ring" data-hl="35.8,99" style="left:280px;top:208px;width:40px;height:20px;border-radius:7px"></div>
+    </div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ============ SCENE 5  41–52 ============ -->
+<section class="scene" data-s="41,52" id="s5">
+  <div class="shotbox" data-in="41.5" style="left:120px;top:340px;width:914px;height:395px">
+    <div class="shotclip"><div class="shot" style="transform:scale(1.45)"><img src="assets/g5.png" width="630" height="272">
+      <div class="ring" data-hl="43.2,99" style="left:493px;top:148px;width:58px;height:20px;border-radius:7px"></div>
+      <div class="ring" data-hl="45.6,99" style="left:489px;top:178px;width:97px;height:20px;border-radius:7px"></div>
+      <div class="ring" data-hl="45.9,99" style="left:489px;top:208px;width:97px;height:20px;border-radius:7px"></div>
+      <div class="ring" data-hl="48.0,99" style="left:489px;top:238px;width:55px;height:20px;border-radius:7px"></div>
+    </div></div>
+  </div>
+  <div class="abs" style="left:1110px;top:340px;width:700px">
+    <div class="kick" data-in="41.3">Hakedişler</div>
+    <div class="h" data-in="41.3" style="font-size:56px;margin-top:20px">Her ödemenin hakedişi, satır satır</div>
+    <div style="margin-top:44px;display:flex;flex-direction:column;gap:18px">
+      <div class="bul" data-in="43.6"><i></i>Hakedişiniz otomatik oluşur</div>
+      <div class="bul" data-in="47.0"><i></i>14 gün sonra ödemeye hazır</div>
+    </div>
+    <div data-in="48.4" style="margin-top:40px;display:flex;gap:12px;align-items:center;font-size:21px;font-weight:700">
+      <span style="background:#fdf3d8;color:#9a6a00;padding:8px 16px;border-radius:999px">Bekliyor</span><span class="a">→</span>
+      <span style="background:#e3f2fb;color:#1f7aa8;padding:8px 16px;border-radius:999px">Ödemeye hazır</span><span class="a">→</span>
+      <span style="background:#e4f5e8;color:#2c8a45;padding:8px 16px;border-radius:999px">Ödendi</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCENE 6  52–66 ============ -->
+<section class="scene" data-s="52,66" id="s6">
+  <div class="abs" style="left:140px;top:330px;width:640px">
+    <div class="kick" data-in="52.3">Ödeme ve fatura</div>
+    <div class="h" data-in="52.3" style="font-size:50px;margin-top:20px">Ay başında<br>ödeme dönemi ·<br>En az <span class="a">1.000 TL</span></div>
+    <div style="margin-top:44px;display:flex;flex-direction:column;gap:20px">
+      <div class="bul" data-in="55.0"><i></i>Faturanızı panelden iletin, ödemeniz IBAN’ınıza yatsın</div>
+      <div class="bul" data-in="59.6"><i></i>1.000 TL altı kaybolmaz, sonraki aya devreder</div>
+    </div>
+  </div>
+  <!-- Görsel 6: Ödemeler / fatura -->
+  <div id="s6a" class="abs" style="inset:0">
+    <div class="win" data-in="52.6" style="left:880px;top:235px;width:900px;height:610px">
+      <div class="bar"><b></b><b></b><b></b></div>
+      <div class="tabs"><span>Özet</span><span>Yönlendirdiğim Kullanıcılar</span><span>Hakedişler</span><span class="on">Ödemeler</span></div>
+      <div style="margin:22px 26px 0;display:flex;justify-content:space-between;align-items:center;background:var(--soft);border:1px dashed #f6cfc3;border-radius:14px;padding:16px 20px">
+        <div style="font-size:19px;font-weight:600;color:#6e6562">Ödeme dönemi <b style="color:var(--ink)">· Ekim 2026</b></div>
+        <div style="font-size:19px;font-weight:600;color:#6e6562">Ödenecek tutar <span class="blur" style="width:110px"></span></div>
+      </div>
+      <div style="margin:22px 26px 0;font-size:20px;font-weight:700">Fatura bilgileri</div>
+      <div style="margin:14px 26px 0;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="field"><label>Fatura numarası</label><span class="blur" style="width:160px"></span><div class="ring" data-hl="55.4,59" style="inset:-2px;border-radius:14px"></div></div>
+        <div class="field"><label>Fatura tarihi</label><span style="font-size:19px;font-weight:600">01.10.2026</span><div class="ring" data-hl="55.7,59" style="inset:-2px;border-radius:14px"></div></div>
+        <div class="field" style="grid-column:1/3"><label>IBAN</label><span style="font-size:19px;font-weight:600">TR</span> <span class="blur" style="width:380px"></span><div class="ring" data-hl="56.0,59" style="inset:-2px;border-radius:14px"></div></div>
+        <div class="field" style="grid-column:1/3;border-style:dashed;display:flex;align-items:center;gap:14px"><div style="width:40px;height:40px;border-radius:10px;background:var(--soft);display:grid;place-items:center;color:var(--a);font-weight:800;font-size:20px">↑</div><div><label style="margin:0">Fatura dosyası</label><span style="font-size:17px;color:#8a817e">PDF olarak yükleyin</span></div><div class="ring" data-hl="56.3,59" style="inset:-2px;border-radius:14px"></div></div>
+      </div>
+      <div style="margin:22px 26px 0;display:flex;justify-content:flex-end">
+        <div id="s6btn" class="btn" style="font-size:22px;padding:16px 34px;position:relative">Faturayı ilet →<div class="ring" data-hl="57.0,59" style="inset:-3px;border-radius:999px"></div></div>
+      </div>
+    </div>
+  </div>
+  <!-- Görsel 8: ödeme yolu zaman çizelgesi -->
+  <div id="s6b" class="abs" style="inset:0;opacity:0">
+    <div class="win" style="left:880px;top:270px;width:900px;height:540px">
+      <div class="bar"><b></b><b></b><b></b></div>
+      <div style="padding:34px 44px 0;font-size:22px;font-weight:700">Ödeme yolu</div>
+      <div style="position:relative;margin:40px 44px 0;height:250px">
+        <div style="position:absolute;left:46px;right:46px;top:44px;height:6px;border-radius:3px;background:#f3e8e4"></div>
+        <div id="tlfill" style="position:absolute;left:46px;top:44px;height:6px;border-radius:3px;background:var(--a);width:0"></div>
+        <div class="tl" data-t="59.4" style="position:absolute;left:0;top:0;width:200px"><div class="dot">1</div><div class="tt">Ay başı</div><div class="td">Ödeme dönemi açılır</div></div>
+        <div class="tl" data-t="60.6" style="position:absolute;left:283px;top:0;width:200px;text-align:center;transform-origin:50% 0"><div class="dot" style="margin:0 auto">2</div><div class="tt">Fatura</div><div class="td">Panelden iletirsiniz</div></div>
+        <div class="tl" data-t="61.8" style="position:absolute;right:0;top:0;width:200px;text-align:right"><div class="dot" style="margin-left:auto">3</div><div class="tt">Ödeme</div><div class="td">IBAN’ınıza yatar</div></div>
+      </div>
+      <div class="tl" data-t="62.8" style="margin:0 44px;display:flex;align-items:center;gap:16px;background:var(--soft);border:1px dashed #f6cfc3;border-radius:14px;padding:16px 20px;font-size:19px;font-weight:600;color:#5f5552">
+        <span style="font-size:26px" class="a">↻</span>1.000 TL altındaki tutar kaybolmaz, sonraki ayın ödemesine eklenir.
+      </div>
+    </div>
+  </div>
+  <style>
+    .dot{width:94px;height:94px;border-radius:50%;background:#fff;border:6px solid var(--a);display:grid;place-items:center;font-size:34px;font-weight:800;color:var(--a);transform:translateY(-0px)}
+    .tt{margin-top:18px;font-size:24px;font-weight:800}
+    .td{margin-top:6px;font-size:18px;font-weight:600;color:#7a7270}
+    #s6b .tl:nth-child(4) .dot{}
+  </style>
+</section>
+
+<!-- ============ SCENE 7  66–75 ============ -->
+<section class="scene" data-s="66,75" id="s7">
+  <div class="abs center h" data-in="66.3" style="top:180px;font-size:66px">Başvurun · Onay alın · Paylaşın · <span class="a">Kazanın</span></div>
+  <div class="abs" style="left:140px;right:140px;top:380px;display:grid;grid-template-columns:repeat(4,1fr);gap:30px">
+    <div class="card" data-c="67.4"><div class="n">1</div><div class="ct">Başvurun</div><div class="cd">Ücretsiz başvuru formunu doldurun</div></div>
+    <div class="card" data-c="68.8"><div class="n">2</div><div class="ct">Onay alın</div><div class="cd">Hesabınızda Partner bölümü açılır</div></div>
+    <div class="card" data-c="70.2"><div class="n">3</div><div class="ct">Paylaşın</div><div class="cd">Kodunuzu ya da linkinizi iletin</div></div>
+    <div class="card" data-c="71.6"><div class="n">4</div><div class="ct">Kazanın</div><div class="cd">Her ödemeden %15 hakediş</div></div>
+  </div>
+  <div class="abs center sub" data-in="71.6" style="top:790px;font-weight:700;color:var(--ink)">Gerisini <span class="a">Melontik</span> halleder</div>
+  <style>
+    .card{position:relative;background:#fff;border:2px solid #f1e6e2;border-radius:26px;padding:38px 34px 40px;height:310px;box-shadow:0 16px 40px rgba(60,25,10,.06)}
+    .card .n{width:66px;height:66px;border-radius:50%;background:var(--soft);color:var(--a);display:grid;place-items:center;font-size:28px;font-weight:800}
+    .card .ct{margin-top:34px;font-size:34px;font-weight:800}
+    .card .cd{margin-top:12px;font-size:21px;font-weight:600;color:#7a7270;line-height:1.4}
+  </style>
+</section>
+
+<!-- ============ SCENE 8  75–85 ============ -->
+<section class="scene" data-s="75,85" id="s8">
+  <div class="abs center h" data-in="75.3" style="top:150px;font-size:70px">Kimler başvurabilir?</div>
+  <div class="win" data-in="75.6" style="left:360px;top:280px;width:1200px;height:690px">
+    <div class="bar"><b></b><b></b><b></b></div>
+    <div style="padding:46px 70px 0;display:flex;flex-direction:column;gap:30px">
+      <div class="req" data-r="76.8"><div class="ck">✓</div><div>Şahıs şirketi veya şirket <span class="a">·</span> Vergi numarası <span class="a">·</span> Fatura kesebilme</div></div>
+      <div class="req" data-r="79.2"><div class="ck">✓</div><div>Başvuru ücretsiz, birkaç dakika sürer</div></div>
+      <div class="req" data-r="81.6"><div class="ck">✓</div><div>Ayrı giriş ya da abonelik gerekmez</div></div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:56px;display:flex;justify-content:center">
+      <div id="s8btn" class="btn" style="font-size:30px;padding:22px 52px;opacity:0">Partner Ol <span style="font-size:32px">→</span></div>
+    </div>
+  </div>
+  <style>
+    .req{display:flex;align-items:center;gap:26px;font-size:32px;font-weight:700;color:#2a2523;padding:22px 26px;border-radius:18px;border:1px solid #f1e6e2}
+    .ck{flex:none;width:52px;height:52px;border-radius:50%;background:#f3eeec;color:#fff;display:grid;place-items:center;font-size:28px;font-weight:800}
+  </style>
+</section>
+
+<!-- ============ SCENE 9  85–90 ============ -->
+<section class="scene" data-s="85,90" id="s9">
+  <div class="abs center" id="s9logo" style="top:250px;display:flex;flex-direction:column;align-items:center;gap:26px">
+    <div class="li" style="width:150px;height:150px"></div>
+    <div style="font-size:96px;font-weight:800;letter-spacing:-.035em;line-height:1">melontik</div>
+  </div>
+  <div class="abs center h" data-in="85.9" style="top:620px;font-size:50px;font-weight:700">Melontik Partner Programı · <span class="a">Hemen Partner Olun</span></div>
+  <div class="abs center" data-in="86.9" style="top:720px;font-size:34px;font-weight:600;color:var(--mut);letter-spacing:.02em">melontik.com</div>
+</section>
+
+<script>
+document.querySelectorAll('.li').forEach(d=>d.innerHTML=document.getElementById('logoIcon').innerHTML);
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const outE=x=>1-Math.pow(1-x,3);
+const cl=x=>Math.max(0,Math.min(1,x));
+const P=(t,a,b,f=ease)=>f(cl((t-a)/(b-a)));
+const lerp=(a,b,p)=>a+(b-a)*p;
+function tf(el,o,x,y,s){el.style.opacity=o;el.style.transform=`translate(${x}px,${y}px) scale(${s})`}
+
+const scenes=[...document.querySelectorAll('.scene')].map(el=>{const[a,b]=el.dataset.s.split(',').map(Number);return{el,a,b}});
+const ins=[...document.querySelectorAll('[data-in]')].map(el=>({el,t:+el.dataset.in}));
+const hls=[...document.querySelectorAll('[data-hl]')].map(el=>{const[a,b]=el.dataset.hl.split(',').map(Number);return{el,a,b}});
+const $=id=>document.getElementById(id);
+
+window.render=function(t){
+  for(const s of scenes){
+    const fi=s.a===0?1:P(t,s.a,s.a+.45), fo=s.b>=90?1:1-P(t,s.b-.45,s.b);
+    const v=Math.min(fi,fo);
+    s.el.style.opacity=v; s.el.style.visibility=v>0?'visible':'hidden';
+    s.el.style.transform=`translateY(${(1-fo)*-18}px)`;
+  }
+  for(const r of ins){const p=P(t,r.t,r.t+.75,outE);tf(r.el,p,0,(1-p)*30,1)}
+  for(const h of hls){
+    const p=P(t,h.a,h.a+.45,outE)*(1-P(t,h.b-.3,h.b));
+    const pulse=1+.06*Math.sin(cl((t-h.a)/.9)*Math.PI);
+    h.el.style.opacity=p; h.el.style.transform=`scale(${lerp(1.25,1,P(t,h.a,h.a+.45,outE))*pulse})`;
+  }
+  // S1 logo: center -> up
+  {const p=P(t,0,1.1,outE),m=P(t,1.4,2.1);tf($('s1logo'),p,0,lerp(140,0,m)+(1-p)*20,lerp(.9,1,p)*lerp(1.12,1,m))}
+  // S3 intro -> main
+  {const iv=P(t,19,19.5)*(1-P(t,22.1,22.6));tf($('s3intro'),iv,0,(1-P(t,19,19.6,outE))*24,lerp(1,.97,P(t,22.1,22.6)));
+   const mv=P(t,22.3,22.9,outE);tf($('s3main'),mv,0,(1-mv)*26,1)}
+  // S4 zoom on table
+  {const z=P(t,33.2,36.2);$('s4zoom').style.transform=`scale(${lerp(1,1.1,z)})`}
+  // S6 A -> B
+  {const a=1-P(t,58.7,59.2);tf($('s6a'),a,lerp(-30,0,a),0,1);
+   const b=P(t,59.0,59.6,outE);tf($('s6b'),b,(1-b)*40,0,1);
+   const btn=$('s6btn');const bp=Math.sin(cl((t-57.0)/.5)*Math.PI);btn.style.transform=`scale(${1+.07*bp})`;
+   document.querySelectorAll('#s6b .tl').forEach(el=>{const p=P(t,+el.dataset.t,+el.dataset.t+.6,outE);tf(el,p,(1-p)*-24,0,1)});
+   $('tlfill').style.width=(P(t,59.6,62.2,x=>x)*(900-88-92))+'px'}
+  // S7 cards
+  document.querySelectorAll('#s7 .card').forEach((c,i)=>{const t0=+c.dataset.c;
+    const appear=P(t,66.6+i*.12,67.3+i*.12,outE);const on=P(t,t0,t0+.5,outE);
+    c.style.opacity=appear;c.style.transform=`translateY(${(1-appear)*30-on*14}px)`;
+    c.style.borderColor=on>.5?'#FF7855':'#f1e6e2';c.style.boxShadow=`0 ${16+on*14}px ${40+on*30}px rgba(255,120,85,${.06+on*.16})`;
+    const n=c.querySelector('.n');n.style.background=on>.5?'#FF7855':'#fff4f0';n.style.color=on>.5?'#fff':'#FF7855'});
+  // S8 requirements + button
+  document.querySelectorAll('#s8 .req').forEach(r=>{const t0=+r.dataset.r;const p=P(t,t0,t0+.6,outE);
+    r.style.opacity=lerp(.18,1,p);r.style.transform=`translateX(${(1-p)*-16}px)`;
+    r.style.borderColor=p>.5?'#ffd2c4':'#f1e6e2';r.style.background=p>.5?'#fffaf8':'#fff';
+    const ck=r.querySelector('.ck');ck.style.background=p>.3?'#FF7855':'#f3eeec';ck.style.transform=`scale(${1+.25*Math.sin(p*Math.PI)})`});
+  {const p=P(t,82.2,82.9,outE);const g=P(t,83.0,84.0);$('s8btn').style.opacity=p;
+   $('s8btn').style.transform=`translateY(${(1-p)*20}px) scale(${lerp(1,1.08,g)})`;
+   $('s8btn').style.boxShadow=`0 ${10+g*14}px ${24+g*24}px rgba(255,120,85,${.25+g*.2})`}
+  // S9 logo
+  {const p=P(t,85.2,86.2,outE);tf($('s9logo'),p,0,(1-p)*24,lerp(.92,1,p))}
+};
+window.render(0);
+</script>
+</body>
+</html>
