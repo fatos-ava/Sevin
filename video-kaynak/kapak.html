@@ -1,0 +1,62 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><style>
+@font-face{font-family:M;src:url(assets/m1.ttf);font-weight:400}
+@font-face{font-family:M;src:url(assets/m2.ttf);font-weight:500}
+@font-face{font-family:M;src:url(assets/m3.ttf);font-weight:600}
+@font-face{font-family:M;src:url(assets/m4.ttf);font-weight:700}
+@font-face{font-family:M;src:url(assets/m5.ttf);font-weight:800}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:M;background:#888}
+.c{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center}
+.a{color:#FF7855}
+.chip{display:inline-flex;align-items:center;gap:14px;border-radius:999px;font-weight:700;white-space:nowrap}
+.chip svg{color:#FF7855;flex:none}
+.chips{display:flex;flex-wrap:wrap;justify-content:center}
+#w{width:1080px;height:1920px;background:#fff;color:#111}
+#w .tag{position:absolute;left:84px;top:72px;display:flex;align-items:center;gap:14px;font-size:22px;font-weight:700;letter-spacing:.14em}
+#w .tag b{background:#FF7855;color:#5a1d0d;border-radius:999px;padding:9px 20px;letter-spacing:.02em;font-size:22px}
+#w .ic{margin-top:520px;width:190px;height:190px;border-radius:46px;background:#FF7855;display:grid;place-items:center;box-shadow:0 24px 50px rgba(255,120,85,.3)}
+#w h1{margin-top:70px;font-size:96px;font-weight:500;line-height:1.02;letter-spacing:-.01em}
+#w h1 .a{font-weight:800}
+#w .chips{margin-top:70px;gap:18px 18px;width:900px}
+#w .chip{background:#2b1a16;color:#fff;font-size:24px;padding:18px 30px;box-shadow:0 6px 14px rgba(43,26,22,.18)}
+#w .ann{margin-top:70px;font-size:48px;font-weight:800}
+#w .foot{position:absolute;left:108px;right:118px;bottom:84px;display:flex;justify-content:space-between;align-items:center}
+#w .logo{font-size:72px;font-weight:800;letter-spacing:-.04em}
+#w .btn{background:#FF7855;color:#111;font-size:28px;font-weight:500;padding:18px 34px;border-radius:999px;display:flex;align-items:center;gap:12px}
+#d{width:1080px;height:1350px;background:#231512;color:#fff;margin-top:40px}
+#d .ic{margin-top:290px;width:176px;height:176px;border-radius:44px;background:#E9805F;display:grid;place-items:center}
+#d h1{margin-top:66px;font-size:84px;font-weight:500;line-height:1.08}
+#d h1 .a{font-weight:800;color:#F08463}
+#d .chips{margin-top:60px;gap:16px;width:760px}
+#d .chip{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.08);color:#e9dfdc;font-size:21px;padding:15px 24px;font-weight:600}
+</style></head><body>
+<template id="hs"><svg viewBox="0 0 24 24" width="WW" height="WW" fill="none" stroke="SS" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></template>
+
+<div class="c" id="w">
+  <div class="tag"><b>YENİ</b>PARTNER PROGRAMI</div>
+  <div class="ic" data-ic="120,#fff"></div>
+  <h1>Müşterini yönlendir,<br>her ödemeden<br><span class="a">hakediş kazan!</span></h1>
+  <div class="chips" data-chips="28"></div>
+  <div class="ann">Partner Programı Yayında!</div>
+  <div class="foot"><div class="logo">melontik</div><div class="btn">Partner Ol <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
+</div>
+
+<div class="c" id="d">
+  <div class="ic" data-ic="112,#2a1714"></div>
+  <h1>Müşterini yönlendir.<br>Her ödemeden<br><span class="a">hakediş kazan.</span></h1>
+  <div class="chips" data-chips="24"></div>
+</div>
+
+<script>
+const I={
+ pct:'<path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
+ inf:'<path d="M6 16c-2.2 0-4-1.8-4-4s1.8-4 4-4c4 0 8 8 12 8 2.2 0 4-1.8 4-4s-1.8-4-4-4c-4 0-8 8-12 8z"/>',
+ code:'<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>',
+ link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
+ users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+ card:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>'};
+const C=[['pct','%15 Hakediş'],['inf','Bitiş Süresi Yok'],['code','Partner Kodu'],['link','Partner Linki'],['users','Kullanıcı Takibi'],['card','Aylık Ödeme']];
+document.querySelectorAll('[data-chips]').forEach(el=>{const s=el.dataset.chips;
+ el.innerHTML=C.map(([k,t])=>`<span class="chip"><svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>${t}</span>`).join('')});
+document.querySelectorAll('[data-ic]').forEach(el=>{const[w,c]=el.dataset.ic.split(',');el.innerHTML=document.getElementById('hs').innerHTML.replace(/WW/g,w).replace('SS',c)});
+</script></body></html>
