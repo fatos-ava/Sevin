@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melontik × paketleriz Reels</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root { --w: 1080px; --h: 1920px; --brand: #FF7855; --brown: #4A1F14; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #111; height: 100%; overflow: hidden; }
+  body { display: grid; place-items: center; font-family: Montserrat, sans-serif; }
+  #stage { position: relative; width: var(--w); height: var(--h); overflow: hidden;
+           transform-origin: center center; color: #fff; background: #000; }
+  body.capture { display: block; background: none; }
+  body.capture #stage { transform: none !important; }
+  .abs { position: absolute; left: 0; top: 0; will-change: transform, opacity; }
+
+  /* ---------- background ---------- */
+  #bg { position: absolute; inset: 0; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(120px); }
+  #g1 { width: 1100px; height: 1100px; background: var(--brand); opacity: .55; }
+  #g2 { width: 900px; height: 900px; background: #000; opacity: .6; }
+  #grid { position: absolute; inset: 0; opacity: .07;
+    background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px);
+    background-size: 120px 120px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent); }
+  #frame { position: absolute; inset: 56px; border: 1px solid rgba(255,255,255,.18); border-radius: 36px; }
+
+  /* ---------- eyebrow ---------- */
+  #eyebrow { display: flex; align-items: center; gap: 22px; font-size: 30px; font-weight: 600;
+             letter-spacing: 8px; white-space: nowrap; }
+  #eyebrow .rule { width: 90px; height: 2px; background: rgba(255,255,255,.7); transform-origin: center; }
+  #eyebrow svg { flex: none; }
+
+  /* ---------- lockup ---------- */
+  .card { width: 700px; border-radius: 28px; display: flex; align-items: center; justify-content: center; gap: 24px; }
+  #mCard { height: 180px; background: #fff; box-shadow: 0 24px 60px rgba(0,0,0,.25); }
+  #pCard { height: 300px; background: #0B0706; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+  .mIcon { width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center;
+           background: radial-gradient(circle at 35% 30%, #FF9B7C, var(--brand) 70%); }
+  .mWord { font-family: Poppins, sans-serif; font-weight: 800; font-size: 92px; color: var(--brown);
+           letter-spacing: -3px; line-height: 1; padding-bottom: 8px; }
+  #pCard img { height: 250px; width: auto; }
+
+  #xRow { display: flex; align-items: center; gap: 30px; width: 700px; }
+  #xRow .rule { flex: 1; height: 1px; background: rgba(255,255,255,.45); }
+  #xRow .rule:first-child { transform-origin: right center; }
+  #xRow .rule:last-child { transform-origin: left center; }
+  #xRow span { font-size: 64px; font-weight: 300; line-height: 1; transform: translateY(-4px); }
+
+  /* ---------- copy ---------- */
+  #copy { width: 1080px; text-align: center; }
+  .line { overflow: hidden; padding: 4px 0; }
+  .line > span { display: inline-block; }
+  #l1 { font-size: 36px; font-weight: 500; color: rgba(255,255,255,.85); margin-bottom: 14px; }
+  #l2, #l3, #l4 { font-size: 80px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.08; }
+  #l2 { color: var(--brand); }
+  #tag { margin-top: 40px; display: flex; align-items: center; justify-content: center; gap: 22px;
+         font-size: 28px; font-weight: 600; letter-spacing: 7px; color: rgba(255,255,255,.9); }
+  #tag .rule { width: 70px; height: 3px; border-radius: 2px; background: var(--brand); }
+  #tag .rule:first-child { transform-origin: right center; }
+  #tag .rule:last-child { transform-origin: left center; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg">
+    <div class="glow abs" id="g1"></div>
+    <div class="glow abs" id="g2"></div>
+    <div id="grid"></div>
+    <div id="frame"></div>
+  </div>
+
+  <div class="abs" id="eyebrow">
+    <div class="rule"></div>
+    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>
+    </svg>
+    <span>PARTNER İŞBİRLİĞİ</span>
+    <div class="rule"></div>
+  </div>
+
+  <div class="abs card" id="mCard">
+    <div class="mIcon">
+      <svg width="66" height="66" viewBox="0 0 76 76" fill="none" stroke="#FFE7DE" stroke-width="9" stroke-linecap="round">
+        <circle cx="21" cy="21" r="11"/><circle cx="55" cy="55" r="11"/><line x1="60" y1="14" x2="16" y2="62"/>
+      </svg>
+    </div>
+    <div class="mWord">melontik</div>
+  </div>
+
+  <div class="abs" id="xRow"><div class="rule"></div><span>×</span><div class="rule"></div></div>
+
+  <div class="abs card" id="pCard"><img src="assets/paketleriz-logo-beyaz.svg" alt="paketleriz.com"></div>
+
+  <div class="abs" id="copy">
+    <div class="line" id="l1"><span>E-ticaret satıcılarına fulfillment çözümleri sunan</span></div>
+    <div class="line" id="l2"><span>paketleriz.com</span></div>
+    <div class="line" id="l3"><span>müşterileri artık</span></div>
+    <div class="line" id="l4"><span>Melontik kullanıyor</span></div>
+    <div id="tag"><div class="rule"></div><span>MELONTİK PARTNER SİSTEMİ</span><div class="rule"></div></div>
+  </div>
+</div>
+
+<script>
+const DUR = 12;           // saniye — Reels döngüsü
+const W = 1080, H = 1920;
+const $ = id => document.getElementById(id);
+
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const easeOut = k => 1 - Math.pow(1 - k, 4);
+const easeInOut = k => k < .5 ? 8 * k ** 4 : 1 - Math.pow(-2 * k + 2, 4) / 2;
+
+function place(el, cx, cy, { s = 1, o = 1 } = {}) {
+  const w = el.offsetWidth, h = el.offsetHeight;
+  el.style.transform = `translate(${cx - w / 2}px, ${cy - h / 2}px) scale(${s})`;
+  el.style.opacity = o;
+}
+
+function render(t) {
+  const out = 1 - easeInOut(prog(t, 11.3, 12));   // outro fade for a clean loop
+
+  // ----- background: #FF7855 → black, slow drift -----
+  const bt = t / DUR * Math.PI * 2;
+  $('stage').style.background =
+    `linear-gradient(${170 + Math.sin(bt) * 6}deg, #FF7855 0%, #9C3F2A 30%, #1A0C08 58%, #000 100%)`;
+  $('g1').style.transform = `translate(${-300 + Math.sin(bt) * 120}px, ${-500 + Math.cos(bt) * 90}px)`;
+  $('g2').style.transform = `translate(${300 + Math.cos(bt) * 100}px, ${1300 + Math.sin(bt) * 80}px)`;
+  $('grid').style.transform = `translateY(${-(t * 6) % 120}px)`;
+  $('frame').style.opacity = easeOut(prog(t, 0, 1.2)) * out;
+
+  // ----- eyebrow (0.3) -----
+  let k = easeOut(prog(t, .3, 1.3));
+  place($('eyebrow'), W / 2, 320 + (1 - k) * 20, { o: k * out });
+  $('eyebrow').querySelectorAll('.rule').forEach(r => r.style.transform = `scaleX(${easeOut(prog(t, .6, 1.6))})`);
+
+  // ----- lockup: melontik → × → paketleriz, then settle -----
+  const settle = easeInOut(prog(t, 3.2, 4.2));
+  const cy = lerp(940, 700, settle), sc = lerp(1, .8, settle);
+  const gTop = lerp(200, 170, settle), gBot = lerp(260, 220, settle);
+
+  k = easeOut(prog(t, .6, 1.6));
+  place($('mCard'), W / 2, cy - gTop + (1 - k) * 40, { s: sc * lerp(.96, 1, k), o: k * out });
+
+  k = easeOut(prog(t, 1.4, 2.2));
+  place($('xRow'), W / 2, cy, { s: sc, o: k * out });
+  $('xRow').querySelectorAll('.rule').forEach(r => r.style.transform = `scaleX(${easeOut(prog(t, 1.5, 2.5))})`);
+
+  k = easeOut(prog(t, 1.9, 2.9));
+  place($('pCard'), W / 2, cy + gBot - (1 - k) * 40, { s: sc * lerp(.96, 1, k), o: k * out });
+
+  // ----- headline: masked line reveals -----
+  place($('copy'), W / 2, 1335, { o: out });
+  [['l1', 3.9], ['l2', 4.4], ['l3', 4.8], ['l4', 5.2]].forEach(([id, a]) => {
+    const k = easeOut(prog(t, a, a + 1));
+    const span = $(id).firstElementChild;
+    span.style.transform = `translateY(${(1 - k) * 110}%)`;
+    span.style.opacity = k;
+  });
+  k = easeOut(prog(t, 6.0, 7.0));
+  $('tag').style.opacity = k;
+  $('tag').querySelector('span').style.transform = `translateY(${(1 - k) * 16}px)`;
+  $('tag').querySelectorAll('.rule').forEach(r => r.style.transform = `scaleX(${easeOut(prog(t, 6.1, 7.1))})`);
+}
+
+window.render = render;
+window.DUR = DUR;
+
+function fit() {
+  const s = Math.min(innerWidth / W, innerHeight / H);
+  $('stage').style.transform = `scale(${s})`;
+}
+
+if (new URLSearchParams(location.search).has('capture')) {
+  document.body.classList.add('capture');
+} else {
+  fit(); addEventListener('resize', fit);
+  document.fonts.ready.then(() => {
+    const t0 = performance.now();
+    const loop = now => { render(((now - t0) / 1000) % DUR); requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+  });
+}
+</script>
+</body>
+</html>
