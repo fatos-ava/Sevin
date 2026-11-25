@@ -1,7 +1,20 @@
-# Melontik marka
+# Melontik marka kiti
 
-- Logo: `melontik-logo.webp`
-- Ana renk (mercan): `#FF7755`
-- Açık ton (logo içi): `#FEE4DD`
+Kaynak: Canva marka kiti ("Brand colors" paleti).
 
-Görsel ve post tasarımlarında vurgu rengi olarak ana rengi kullan.
+## Logo
+
+`melontik-logo.webp`
+
+## Renkler
+
+| Renk | Kod | Kullanım |
+| --- | --- | --- |
+| Mercan | `#FF7855` | Ana marka rengi, vurgular |
+| Açık pembe | `#FFE4DD` | Logo içi, açık zeminler |
+| Koyu kahve | `#26120D` | Koyu zemin, metin |
+| Sıcak gri | `#8D7F7C` | İkincil metin |
+| Gri | `#A9AAAA` | Nötr |
+| Açık mavi | `#56DDFF` | İkincil vurgu |
+
+Görsel ve post tasarımlarında vurgu rengi olarak mercanı kullan.
