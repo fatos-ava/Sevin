@@ -18,3 +18,7 @@ Kaynak: Canva marka kiti ("Brand colors" paleti).
 | Açık mavi | `#56DDFF` | İkincil vurgu |
 
 Görsel ve post tasarımlarında vurgu rengi olarak mercanı kullan.
+
+## Yazı tipi
+
+Montserrat (tüm stiller). Başlıklar kalın (Bold/ExtraBold), gövde ve açıklama metinleri normal ağırlıkta.
