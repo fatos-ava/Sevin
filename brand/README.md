@@ -4,7 +4,13 @@ Kaynak: Canva marka kiti ("Brand colors" paleti).
 
 ## Logo
 
-`melontik-logo.webp`
+| Dosya | Açıklama |
+| --- | --- |
+| `melontik-icon.webp` | İkon (mercan daire, şeffaf zemin) |
+| `melontik-icon.jpg` | İkon, JPG (beyaz zemin) |
+| `melontik-logo-stacked.webp` | Dikey logo: ikon üstte, koyu kahve yazı |
+| `melontik-logo-horizontal.webp` | Yatay logo: mercan ikon, koyu kahve yazı |
+| `melontik-logo-horizontal-coral.webp` | Yatay logo: açık pembe ikon, mercan yazı |
 
 ## Renkler
 
